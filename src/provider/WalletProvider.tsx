@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DynamicContextProvider,
   DynamicWidget,
@@ -9,6 +11,7 @@ import { http } from "viem";
 import { mainnet } from "viem/chains";
 
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import { Children } from "react";
 
 if (!process.env.NEXT_PUBLIC_DYNAMIC_ID) {
   throw new Error("NEXT_PUBLIC_DYNAMIC_ID is not set");
@@ -26,7 +29,11 @@ const config = createConfig({
 
 const queryClient = new QueryClient();
 
-export const WalletProvider = () => {
+export const WalletProvider = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
   return (
     <DynamicContextProvider
       settings={{
@@ -36,9 +43,7 @@ export const WalletProvider = () => {
     >
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <DynamicWagmiConnector>
-            <DynamicWidget />
-          </DynamicWagmiConnector>
+          <DynamicWagmiConnector>{children}</DynamicWagmiConnector>
         </QueryClientProvider>
       </WagmiProvider>
     </DynamicContextProvider>
