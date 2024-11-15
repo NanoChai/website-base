@@ -5,6 +5,8 @@ import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { useEffect, useState } from 'react';
 import { WalletIcon } from './WalletIcon';
 import { SiteNav } from './SiteNav';
+import { APP_CONFIG } from "@/config/app";
+import Image from 'next/image';
 
 export const NavBar = () => {
   const { openPayPopup } = usePayPopup();
@@ -42,8 +44,10 @@ export const NavBar = () => {
     <div className="flex flex-col">
       <div className="flex justify-between items-center p-3 bg-gray-300 sticky top-0 z-60">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
-          <span className="text-xl font-bold">App Title</span>
+          <div className="w-8 h-8">
+            <Image src={APP_CONFIG.images.logo} alt={APP_CONFIG.name} width={42} height={42} priority />
+          </div>
+          <span className="text-xl font-bold">{APP_CONFIG.name}</span>
         </div>
 
         <WalletIcon 
