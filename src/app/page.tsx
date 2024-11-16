@@ -122,7 +122,7 @@ export default function Home() {
             ))}
 
             <div className="mt-8 p-4 bg-gray-50 rounded">
-              <h4 className="font-bold mb-2 text-black">Today's Forecast</h4>
+              <h4 className="font-bold mb-2 text-black">Todays Forecast</h4>
               <div className="text-center">
                 <div className="text-4xl mb-2">☀️</div>
                 <p className="text-black">Perfect for walkies!</p>
