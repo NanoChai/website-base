@@ -8,10 +8,9 @@ import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 import { createConfig, WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { http } from "viem";
-import { mainnet } from "viem/chains";
+import { baseSepolia } from "viem/chains";
 
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import { Children } from "react";
 import { useState, createContext, useContext } from "react";
 import { PayPopup } from "@/components/PayPopup";
 
@@ -22,10 +21,10 @@ if (!process.env.NEXT_PUBLIC_DYNAMIC_ID) {
 const environmentId = process.env.NEXT_PUBLIC_DYNAMIC_ID;
 
 const config = createConfig({
-  chains: [mainnet],
+  chains: [baseSepolia],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [mainnet.id]: http(),
+    [baseSepolia.id]: http(),
   },
 });
 
@@ -37,7 +36,9 @@ interface PayPopupContextType {
   isPayPopupOpen: boolean;
 }
 
-const PayPopupContext = createContext<PayPopupContextType | undefined>(undefined);
+const PayPopupContext = createContext<PayPopupContextType | undefined>(
+  undefined
+);
 
 export const WalletProvider = ({
   children,
@@ -64,9 +65,9 @@ export const WalletProvider = ({
           <QueryClientProvider client={queryClient}>
             <DynamicWagmiConnector>
               {children}
-              <PayPopup 
-                isOpen={isPayPopupOpen} 
-                onClose={() => setIsPayPopupOpen(false)} 
+              <PayPopup
+                isOpen={isPayPopupOpen}
+                onClose={() => setIsPayPopupOpen(false)}
               />
             </DynamicWagmiConnector>
           </QueryClientProvider>
