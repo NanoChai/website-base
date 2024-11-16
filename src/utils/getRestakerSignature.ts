@@ -30,7 +30,6 @@ export const getRestakerSignature = async (
       "Content-Type": "application/json",
       "Accept": "application/json",
     },
-    rejectUnauthorized: false,
     credentials: "include",
     body: JSON.stringify({
       userAddress,

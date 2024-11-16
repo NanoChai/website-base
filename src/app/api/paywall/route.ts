@@ -1,6 +1,6 @@
 import { verifySignatures } from "@/utils/verifySignatures";
 import { NextRequest, NextResponse } from "next/server";
-import { content } from "./content";
+import { lockedContent } from "./content";
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
@@ -11,6 +11,7 @@ export const POST = async (request: NextRequest) => {
     userAddress,
     messageHash,
     restakerAddress,
+    url,
   } = body;
   console.log(body);
   if (
@@ -18,7 +19,8 @@ export const POST = async (request: NextRequest) => {
     !restakerSignature ||
     !userAddress ||
     !messageHash ||
-    !restakerAddress
+    !restakerAddress ||
+    !url
   ) {
     return NextResponse.json({ message: "Payment Required" }, { status: 402 });
   }
@@ -36,7 +38,7 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ message: "Invalid Signature" }, { status: 400 });
   }
 
-  const data = content[body.url];
+  const data = lockedContent.data[url as keyof typeof lockedContent.data];
 
   if (!data) {
     return NextResponse.json({ message: "No content found" }, { status: 404 });
