@@ -8,9 +8,11 @@ export const PaidLink = () => {
   const router = useRouter();
 
   const handleClick = async () => {
-    const url = "/exclusive";
-    const signature = await signRequest(url);
-    router.push(`/exclusive?paymentSignature=${signature}`);
+    const signatures = await signRequest();
+    const { userSignature, restakerSignature } = signatures;
+    router.push(
+      `/exclusive?userSignature=${userSignature}&restakerSignature=${restakerSignature}`
+    );
   };
 
   return (

@@ -1,18 +1,17 @@
 import { encodePacked } from "viem";
 import { keccak256 } from "viem";
+import { PaymentRequest } from "@/types";
 
-const SERVICE = "0x0"; // Providers Wallet
-const AMOUNT = BigInt(1);
-const CHAIN_ID = BigInt(1);
+export const getPaymentHash = (paymentRequest: PaymentRequest) => {
+  const { service, amount, timestamp, chainId, nonce } = paymentRequest;
 
-export const getPaymentHash = () => {
-  const timestamp = BigInt(Math.floor(Date.now() / 1000));
-
-  const nonce = BigInt(0);
+  if (!nonce) {
+    throw new Error("Nonce is not defined");
+  }
 
   const encoded = encodePacked(
     ["string", "uint256", "uint256", "uint256", "uint256"],
-    [SERVICE, AMOUNT, timestamp, nonce, CHAIN_ID]
+    [service, amount, timestamp, nonce, chainId]
   );
 
   return keccak256(encoded);
