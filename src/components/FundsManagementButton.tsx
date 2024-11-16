@@ -6,6 +6,7 @@ import { useDepositFunds } from "@/hooks/useDepositFunds";
 import FundManagementDialog from "./FundManagementDialog";
 import { useState } from "react";
 import { Button } from "./ui/button";
+import { BalanceView } from "./BalanceView";
 
 export const FundsManagementButton = ({
   address,
@@ -19,7 +20,12 @@ export const FundsManagementButton = ({
 
   return (
     <div className="mx-3">
-      <Button onClick={() => setIsModalOpen(!isModalOpen)}>Manage Funds</Button>
+      <div className="flex gap-2">
+        <BalanceView address={address} />
+        <Button onClick={() => setIsModalOpen(!isModalOpen)}>
+          Manage Funds
+        </Button>
+      </div>
       <FundManagementDialog isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
     </div>
   );

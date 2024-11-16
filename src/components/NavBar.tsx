@@ -1,12 +1,6 @@
 "use client";
 
 import { DynamicWidget, useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import { useEffect, useState } from "react";
-import { WalletIcon } from "./WalletIcon";
-import { SiteNav } from "./SiteNav";
-import { APP_CONFIG } from "@/config/app";
-import Image from "next/image";
-import { useFundsBalance } from "@/hooks/useFundsBalance";
 import { FundsManagementButton } from "./FundsManagementButton";
 
 export const NavBar = () => {
