@@ -1,6 +1,4 @@
-const SERVICE = "0x0"; // Providers Wallet
-const AMOUNT = BigInt(1);
-const CHAIN_ID = BigInt(1);
+import { AMOUNT, CHAIN_ID, SERVICE } from "@/constants";
 
 export const getPaymentRequest = () => {
   const timestamp = BigInt(Math.floor(Date.now() / 1000));

@@ -11,15 +11,20 @@ export const useSignRequest = () => {
       throw new Error("Primary wallet is not available");
     }
     const paymentRequest = getPaymentRequest();
-    const restakerSignature = await getRestakerSignature(paymentRequest);
-    const messageHash = getPaymentHash(paymentRequest);
+    const { signature: restakerSignature, nonce } = await getRestakerSignature(
+      paymentRequest
+    );
+    const messageHash = getPaymentHash({
+      ...paymentRequest,
+      nonce: BigInt(nonce),
+    });
     const userSignature = await primaryWallet.signMessage(messageHash);
-
+    const userAddress = primaryWallet.address;
     return {
       userSignature,
       restakerSignature,
       messageHash,
-      userAddress: primaryWallet.address,
+      userAddress,
     };
   };
 

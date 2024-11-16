@@ -25,6 +25,7 @@ export const verifySignatures = async ({
   });
 
   if (!isRestakerSignatureValid) {
+    console.log("Restaker signature is invalid");
     return false;
   }
 
@@ -35,6 +36,7 @@ export const verifySignatures = async ({
   });
 
   if (!isUserSignatureValid) {
+    console.log("User signature is invalid");
     return false;
   }
 

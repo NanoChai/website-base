@@ -11,7 +11,13 @@ export const POST = async (request: NextRequest) => {
   }
 
   // Check the signature
-  const isValid = await verifySignatures(body);
+  let isValid = false;
+
+  try {
+    isValid = await verifySignatures(body);
+  } catch (e) {
+    console.log(e);
+  }
 
   if (!isValid) {
     return NextResponse.json({ message: "Invalid Signature" }, { status: 400 });

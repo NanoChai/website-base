@@ -1,7 +1,7 @@
 "use client";
 
-import { WalletOutline, SettingsOutline } from 'react-ionicons';
-import 'animate.css';
+import { WalletOutline, SettingsOutline } from "react-ionicons";
+import "animate.css";
 
 interface WalletIconProps {
   isHovering: boolean;
@@ -12,13 +12,13 @@ interface WalletIconProps {
   balance?: string | null;
 }
 
-export const WalletIcon = ({ 
-  isHovering, 
-  isConnected, 
-  onMouseEnter, 
-  onMouseLeave, 
-  onClick, 
-  balance 
+export const WalletIcon = ({
+  isHovering,
+  isConnected,
+  onMouseEnter,
+  onMouseLeave,
+  onClick,
+  balance,
 }: WalletIconProps) => {
   return (
     <div className="flex items-center gap-0">
@@ -29,34 +29,31 @@ export const WalletIcon = ({
           </span>
         </div>
       )}
-      <button 
+      <button
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         className={`transition-colors flex items-center justify-center -ml-[2px] h-8
-          ${isConnected 
-            ? 'bg-green-500 hover:bg-green-600 w-8 rounded-r-full' 
-            : 'bg-blue-500 hover:bg-blue-600 px-4 rounded'
+          ${
+            isConnected
+              ? "bg-green-500 hover:bg-green-600 w-8 rounded-r-full"
+              : "bg-blue-500 hover:bg-blue-600 px-4 rounded"
           } text-white`}
       >
         {isConnected ? (
-          <div className={`animate__animated ${isHovering ? 'animate__pulse' : ''}`}>
+          <div
+            className={`animate__animated ${
+              isHovering ? "animate__pulse" : ""
+            }`}
+          >
             {isHovering ? (
-              <SettingsOutline
-                color={'white'} 
-                height="20px"
-                width="20px"
-              />
+              <SettingsOutline color={"white"} height="20px" width="20px" />
             ) : (
-              <WalletOutline
-                color={'white'} 
-                height="20px"
-                width="20px"
-              />
+              <WalletOutline color={"white"} height="20px" width="20px" />
             )}
           </div>
         ) : (
-          'Connect Wallet'
+          "Connect Wallet"
         )}
       </button>
     </div>
