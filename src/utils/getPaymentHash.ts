@@ -3,15 +3,29 @@ import { keccak256 } from "viem";
 import { PaymentRequest } from "@/types";
 
 export const getPaymentHash = (paymentRequest: PaymentRequest) => {
-  const { service, amount, timestamp, chainId, nonce } = paymentRequest;
+  const { service, amount, userAddress, chainId, nonce } = paymentRequest;
 
   if (!nonce) {
     throw new Error("Nonce is not defined");
   }
 
+  console.log([
+    service,
+    userAddress,
+    amount.toString(),
+    nonce.toString(),
+    chainId.toString(),
+  ]);
+
   const encoded = encodePacked(
-    ["string", "uint256", "uint256", "uint256", "uint256"],
-    [service, amount, timestamp, nonce, chainId]
+    ["address", "address", "string", "string", "string"],
+    [
+      service,
+      userAddress,
+      amount.toString(),
+      nonce.toString(),
+      chainId.toString(),
+    ]
   );
 
   return keccak256(encoded);
