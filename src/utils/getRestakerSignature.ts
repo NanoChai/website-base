@@ -33,10 +33,11 @@ export const getRestakerSignature = async (paymentRequest: PaymentRequest) => {
   return fetch(restakerUrl, {
     method: "POST",
     body: JSON.stringify({
-      service,
+      serviceAddress: service,
       amount: amount.toString(),
       timestamp: timestamp.toString(),
       chainId: chainId.toString(),
+      userSig: "hard-code",
     }),
   });
 };
