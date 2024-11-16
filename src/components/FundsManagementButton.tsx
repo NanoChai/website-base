@@ -16,7 +16,7 @@ export const FundsManagementButton = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { balance } = useFundsBalance(address);
-  const { depositFunds } = useDepositFunds();
+  const { depositFunds, allowance } = useDepositFunds(address);
 
   return (
     <div className="mx-3">

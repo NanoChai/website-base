@@ -1,11 +1,11 @@
 import { parseAbi } from "viem";
 import { useReadContract } from "wagmi";
 
-if (!process.env.NEXT_PUBLIC_CONTRACT_ADDRESS) {
-  throw new Error("NEXT_PUBLIC_CONTRACT_ADDRESS is not defined");
+if (!process.env.NEXT_PUBLIC_USDC_CONTRACT_ADDRESS) {
+  throw new Error("NEXT_PUBLIC_USDC_CONTRACT_ADDRESS is not defined");
 }
 const contractAddress = process.env
-  .NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`;
+  .NEXT_PUBLIC_USDC_CONTRACT_ADDRESS as `0x${string}`;
 
 const tokenAbi = parseAbi([
   "function balanceOf(address _owner) public view returns (uint256)",
