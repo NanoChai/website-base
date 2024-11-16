@@ -12,10 +12,15 @@ export const useSignRequest = () => {
     }
     const paymentRequest = getPaymentRequest();
     const restakerSignature = await getRestakerSignature(paymentRequest);
-    const hash = getPaymentHash(paymentRequest);
-    const userSignature = primaryWallet.signMessage(hash);
+    const messageHash = getPaymentHash(paymentRequest);
+    const userSignature = await primaryWallet.signMessage(messageHash);
 
-    return { userSignature, restakerSignature };
+    return {
+      userSignature,
+      restakerSignature,
+      messageHash,
+      userAddress: primaryWallet.address,
+    };
   };
 
   return { signRequest };

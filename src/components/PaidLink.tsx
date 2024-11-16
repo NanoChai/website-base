@@ -1,23 +1,30 @@
 "use client";
 
 import { useSignRequest } from "@/hooks/useSignRequest";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const PaidLink = () => {
   const { signRequest } = useSignRequest();
-  const router = useRouter();
+  const [content, setContent] = useState();
 
   const handleClick = async () => {
-    const signatures = await signRequest();
-    const { userSignature, restakerSignature } = signatures;
-    router.push(
-      `/exclusive?userSignature=${userSignature}&restakerSignature=${restakerSignature}`
-    );
+    const signedRequest = await signRequest();
+    const url = "/cool-content";
+    const contentRequest = await fetch("/api/paywall", {
+      method: "POST",
+      body: JSON.stringify({ ...signedRequest, url }),
+    });
+    const contentResponse = await contentRequest.json();
+    setContent(contentResponse);
   };
 
   return (
     <div>
-      <button onClick={handleClick}>Click to see exclusive content</button>
+      {content ? (
+        <>{JSON.stringify(content)}</>
+      ) : (
+        <button onClick={handleClick}>Click to see exclusive content</button>
+      )}
     </div>
   );
 };
