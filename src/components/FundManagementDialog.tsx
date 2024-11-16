@@ -1,8 +1,9 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -13,47 +14,55 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { useFundsBalance } from "@/hooks/useFundsBalance";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 export default function FundManagementDialog({
   isOpen,
   setIsOpen,
 }: {
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setIsOpen: (open: boolean) => void;
 }) {
+  const [amount, setAmount] = useState(5);
+
+  const { primaryWallet } = useDynamicContext();
+
+  const address = primaryWallet?.address
+    ? (primaryWallet?.address as `0x${string}`)
+    : undefined;
+
+  const { balance } = useFundsBalance(address);
+
   return (
     <Dialog open={isOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Manage Funds</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            To use microChai you must transfers funds to your account
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
+            <Label htmlFor="amount" className="text-right">
+              Amount ($USD)
             </Label>
             <Input
-              id="name"
-              defaultValue="Pedro Duarte"
+              id="amount"
+              type="number"
               className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input
-              id="username"
-              defaultValue="@peduarte"
-              className="col-span-3"
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
             />
           </div>
         </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
+        <DialogFooter className="flex">
+          <Button>Deposit</Button>
+          <Button>Withdraw</Button>
+          <Button onClick={() => setIsOpen(false)} variant="secondary">
+            Cancel
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
