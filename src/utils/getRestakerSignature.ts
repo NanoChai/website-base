@@ -10,6 +10,7 @@ export const getRestakerSignature = (
   userAddress: string
 ) => {
   const { service, amount, timestamp, chainId } = paymentRequest;
+
   return fetch(`${restakerUrl}/sign-spend`, {
     method: "POST",
     headers: {
