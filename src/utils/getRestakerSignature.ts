@@ -32,6 +32,7 @@ export const getRestakerSignature = async (paymentRequest: PaymentRequest) => {
   const { service, amount, timestamp, chainId } = paymentRequest;
   return fetch(restakerUrl, {
     method: "POST",
+    mode: "no-cors",
     body: JSON.stringify({
       serviceAddress: service,
       amount: amount.toString(),
