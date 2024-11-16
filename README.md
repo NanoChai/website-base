@@ -1,39 +1,16 @@
-# NanoChai Components
+# NanoChai Showcase Client
 
-A collection of React components for the NanoChai network, providing a seamless web3 integration and navigation experience.
+This application show cases the NanoChai protocol, by acting like a news resource.
+Exclusive content can be unlocked with micropayments.
 
-## Core Components
+### Contracts found here:
 
-### NavBar
-The main navigation component that includes wallet integration and site navigation.
-- Displays app title and logo
-- Shows wallet connection status
-- Integrates with Dynamic Labs SDK
-- Displays user balance
-- Contains the site navigation menu
+https://github.com/NanoChai/contracts
 
-### WalletIcon
-A dynamic wallet interaction button that changes based on connection status.
-- Shows connection status
-- Displays user balance when connected
-- Animated hover effects
-- Toggles between wallet and settings icons
-- Responsive design with animated transitions
+### Backend found here
 
-### SiteNav
-A responsive navigation menu for site-wide navigation.
-- Highlights current active route
-- Responsive design
-- Includes Home, About, and Settings pages
-- Sticky positioning for better UX
+https://github.com/NanoChai/restaked-node
 
-### PayPopup
-A modal component for handling wallet connections and payments.
-- Integrates with Dynamic Labs SDK
-- Handles wallet authentication
-- Displays user balance
-- Processes payments
-- Shows network benefits and features
+### Restaking node found here
 
-## Usage
-
+https://github.com/NanoChai/restaked-node
