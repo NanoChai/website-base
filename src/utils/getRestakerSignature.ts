@@ -24,7 +24,11 @@ export const getRestakerSignature = async (paymentRequest: PaymentRequest) => {
     nonce,
   });
 
-  return { signature, nonce: "1", restakerAddress: account.address };
+  return {
+    signature,
+    nonce: "1",
+    restakerAddress: "0x1FDD9d4f271D4aE9f4F2FA241EEFE331A75f0498",
+  };
 
   // const { service, amount, timestamp, chainId } = paymentRequest;
   // return fetch(RESTAKER_URL, {

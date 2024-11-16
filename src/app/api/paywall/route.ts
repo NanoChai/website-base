@@ -1,5 +1,6 @@
 import { verifySignatures } from "@/utils/verifySignatures";
 import { NextRequest, NextResponse } from "next/server";
+import { content } from "./content";
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
@@ -11,7 +12,7 @@ export const POST = async (request: NextRequest) => {
     messageHash,
     restakerAddress,
   } = body;
-
+  console.log(body);
   if (
     !userSignature ||
     !restakerSignature ||
@@ -35,7 +36,11 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ message: "Invalid Signature" }, { status: 400 });
   }
 
-  console.log("User wants content for url", body.url);
+  const data = content[body.url];
 
-  return NextResponse.json({ message: "Content unlocked", url: body.url });
+  if (!data) {
+    return NextResponse.json({ message: "No content found" }, { status: 404 });
+  }
+
+  return NextResponse.json({ data });
 };

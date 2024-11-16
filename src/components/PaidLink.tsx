@@ -12,7 +12,7 @@ export const PaidLink = () => {
   const handleClick = async () => {
     setIsLoading(true);
     const signedRequest = await signRequest();
-    const url = "/cool-content";
+    const url = "test";
     const contentRequest = await fetch("/api/paywall", {
       method: "POST",
       body: JSON.stringify({ ...signedRequest, url }),
