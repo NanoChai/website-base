@@ -21,21 +21,17 @@ export const getRestakerSignature = async (
   paymentRequest: PaymentRequest,
   userAddress: string
 ) => {
-  // const nonce = BigInt(1);
-  // const signature = await getMockRestakerSignature({
-  //   ...paymentRequest,
-  //   nonce,
-  // });
-  // return {
-  //   signature,
-  //   nonce: "1",
-  //   restakerAddress: "0x1FDD9d4f271D4aE9f4F2FA241EEFE331A75f0498",
-  // };
-
   const { service, amount, timestamp, chainId } = paymentRequest;
-  return fetch(restakerUrl, {
+  
+  const response = await fetch(restakerUrl, {
     method: "POST",
     mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    rejectUnauthorized: false,
+    credentials: "include",
     body: JSON.stringify({
       userAddress,
       serviceAddress: service,
@@ -45,4 +41,6 @@ export const getRestakerSignature = async (
       userSig: "hard-code",
     }),
   });
+
+  return response;
 };
