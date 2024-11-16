@@ -11,9 +11,10 @@ export const useSignRequest = () => {
       throw new Error("Primary wallet is not available");
     }
     const paymentRequest = getPaymentRequest();
-    const restakerResponse = await getRestakerSignature(paymentRequest).then(
-      (res) => res.json()
-    );
+    const restakerResponse = await getRestakerSignature(
+      paymentRequest,
+      primaryWallet.address
+    ).then((res) => res.json());
     const {
       signature: restakerSignature,
       nonce,

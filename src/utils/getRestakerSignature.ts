@@ -17,7 +17,10 @@ const getMockRestakerSignature = async (paymentRequest: PaymentRequest) => {
   return signature;
 };
 
-export const getRestakerSignature = async (paymentRequest: PaymentRequest) => {
+export const getRestakerSignature = async (
+  paymentRequest: PaymentRequest,
+  userAddress: string
+) => {
   // const nonce = BigInt(1);
   // const signature = await getMockRestakerSignature({
   //   ...paymentRequest,
@@ -34,6 +37,7 @@ export const getRestakerSignature = async (paymentRequest: PaymentRequest) => {
     method: "POST",
     mode: "no-cors",
     body: JSON.stringify({
+      userAddress,
       serviceAddress: service,
       amount: amount.toString(),
       timestamp: timestamp.toString(),
