@@ -10,7 +10,7 @@ export const BalanceView = ({ address }: { address: `0x${string}` }) => {
 
   return (
     <div className="mx-3 bg-gray-300 my-auto p-1">
-      Account Balance: {usdAmount}
+      Account Balance: ${usdAmount} ({balance?.toString()} Requests)
     </div>
   );
 };

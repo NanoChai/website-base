@@ -51,7 +51,7 @@ export const useDepositFunds = (address: `0x${string}` | undefined) => {
         },
         body: JSON.stringify({
           userAddress: address,
-          amount,
+          amount: amount.toString(),
           chainId: CHAIN_ID,
         }),
       });
