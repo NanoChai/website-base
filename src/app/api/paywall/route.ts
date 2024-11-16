@@ -4,9 +4,21 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
 
-  const { userSignature, restakerSignature, userAddress, messageHash } = body;
+  const {
+    userSignature,
+    restakerSignature,
+    userAddress,
+    messageHash,
+    restakerAddress,
+  } = body;
 
-  if (!userSignature || !restakerSignature || !userAddress || !messageHash) {
+  if (
+    !userSignature ||
+    !restakerSignature ||
+    !userAddress ||
+    !messageHash ||
+    !restakerAddress
+  ) {
     return NextResponse.json({ message: "Payment Required" }, { status: 402 });
   }
 

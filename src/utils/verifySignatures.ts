@@ -1,18 +1,13 @@
 import { client } from "@/viem";
 
-if (!process.env.NEXT_PUBLIC_RESTAKER_ADDRESS) {
-  throw new Error("NEXT_PUBLIC_RESTAKER_ADDRESS is not defined");
-}
-
-const restakerAddress = process.env
-  .NEXT_PUBLIC_RESTAKER_ADDRESS as `0x${string}`;
-
 export const verifySignatures = async ({
+  restakerAddress,
   restakerSignature,
   userSignature,
   userAddress,
   messageHash,
 }: {
+  restakerAddress: `0x${string}`;
   restakerSignature: `0x${string}`;
   userSignature: `0x${string}`;
   userAddress: `0x${string}`;
