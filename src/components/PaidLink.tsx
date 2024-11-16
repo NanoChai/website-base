@@ -5,6 +5,14 @@ import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
+type SignedRequest = {
+  userSignature: string | undefined;
+  restakerSignature: string;
+  messageHash: `0x${string}`;
+  userAddress: `0x${string}`;
+  restakerAddress: `0x${string}`;
+};
+
 interface PaidLinkProps {
   articleId: string;
   children: React.ReactNode;
@@ -15,7 +23,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
   const [content, setContent] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
   const { primaryWallet } = useDynamicContext();
-  const [signedRequest, setSignedRequest] = useState<any>(null);
+  const [signedRequest, setSignedRequest] = useState<SignedRequest | null>(null);
 
   useEffect(() => {
     const preSignRequest = async () => {
@@ -47,7 +55,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
       });
       const contentResponse = await contentRequest.json();
       
-      if (contentResponse.data && contentResponse.data.content) {
+      if (contentResponse.data) {
         setContent(contentResponse.data.content);
       } else {
         console.error("Failed to unlock content");
