@@ -5,11 +5,8 @@ if (!process.env.NEXT_PUBLIC_RESTAKER_URL) {
 }
 const restakerUrl = process.env.NEXT_PUBLIC_RESTAKER_URL;
 
-export const getRestakerSignature = (
-  paymentRequest: PaymentRequest,
-  userAddress: string
-) => {
-  const { service, amount, timestamp, chainId } = paymentRequest;
+export const getRestakerSignature = (paymentRequest: PaymentRequest) => {
+  const { service, amount, userAddress, chainId } = paymentRequest;
 
   return fetch(`${restakerUrl}/sign-spend`, {
     method: "POST",
@@ -20,7 +17,6 @@ export const getRestakerSignature = (
       userAddress,
       serviceAddress: service,
       amount: amount.toString(),
-      timestamp: timestamp.toString(),
       chainId: chainId.toString(),
       userSig: "hard-code",
     }),

@@ -34,6 +34,7 @@ export const useDepositFunds = (address: `0x${string}` | undefined) => {
     args: [address!, contractAddress],
     query: {
       enabled: !!address,
+      refetchInterval: 100,
     },
   });
 

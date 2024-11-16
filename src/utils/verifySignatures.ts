@@ -13,6 +13,8 @@ export const verifySignatures = async ({
   userAddress: `0x${string}`;
   messageHash: `0x${string}`;
 }) => {
+  console.log("Verifying signatures");
+
   const isRestakerSignatureValid = await client.verifyMessage({
     address: restakerAddress,
     message: messageHash,

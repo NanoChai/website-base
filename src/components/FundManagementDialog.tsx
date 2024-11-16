@@ -48,7 +48,7 @@ export default function FundManagementDialog({
   const formattedWallet = formatUnits(walletBalance || BigInt(0), 6);
 
   const { grantApproval, depositFunds, allowance } = useDepositFunds(address);
-
+  console.log(allowance);
   const amountApproved = formatUnits(allowance || BigInt(0), 6);
   const amountApprovedNumber = Number(amountApproved);
 

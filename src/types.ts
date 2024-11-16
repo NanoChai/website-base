@@ -1,7 +1,7 @@
 export interface PaymentRequest {
-  service: string;
-  amount: bigint;
-  timestamp: bigint;
-  chainId: bigint;
-  nonce?: bigint;
+  service: `0x${string}`;
+  amount: string;
+  userAddress: `0x${string}`;
+  chainId: string;
+  nonce?: string;
 }
