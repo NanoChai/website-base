@@ -23,34 +23,11 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
   const [content, setContent] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
   const { primaryWallet } = useDynamicContext();
-  const [signedRequest, setSignedRequest] = useState<SignedRequest | null>(
-    null
-  );
-
-  useEffect(() => {
-    const preSignRequest = async () => {
-      console.log("Pre-signing request...");
-      if (primaryWallet?.address) {
-        try {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          const request = await signRequest();
-          setSignedRequest(request);
-        } catch (error) {
-          console.error("Failed to pre-sign request:", error);
-        }
-      }
-    };
-
-    preSignRequest();
-  }, [primaryWallet?.address]);
-
-  console.log("signedRequest", signedRequest);
 
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      console.log("Using prefetch", !!signedRequest);
-      const request = signedRequest || (await signRequest());
+      const request = await signRequest();
       if (!request) {
         console.error("Failed to sign request");
         return;
@@ -103,7 +80,6 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
           {children}
           <button
             onClick={handleClick}
-            disabled={!signedRequest}
             className="mt-4 px-6 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 
               text-white rounded-lg font-medium
               hover:from-purple-700 hover:to-blue-700 
@@ -117,7 +93,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
               disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="relative inline-flex items-center">
-              {!signedRequest ? "Preparing..." : "✨ Read Full Article ✨"}
+              ✨ Read Full Article ✨
             </span>
           </button>
         </div>
