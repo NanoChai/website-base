@@ -32,6 +32,8 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
       console.log("Pre-signing request...");
       if (primaryWallet?.address) {
         try {
+          const isConnected = await primaryWallet.isConnected();
+          console.log("isConnected", isConnected);
           const request = await signRequest();
           setSignedRequest(request);
         } catch (error) {
@@ -43,11 +45,13 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
     preSignRequest();
   }, [primaryWallet?.address]);
 
+  console.log("signedRequest", signedRequest);
+
   const handleClick = async () => {
     setIsLoading(true);
     try {
       console.log("Fetching content...", signedRequest);
-      const request = signedRequest || (await signRequest());
+      const request = await signRequest();
       if (!request) {
         console.error("Failed to sign request");
         return;
