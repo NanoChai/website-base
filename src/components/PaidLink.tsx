@@ -53,7 +53,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
       const url = window.location.pathname;
       const contentRequest = await fetch("/api/paywall", {
         method: "POST",
-        body: JSON.stringify({ ...request, url, articleId }),
+        body: JSON.stringify({ ...request, url: articleId }),
       });
       const contentResponse = await contentRequest.json();
       
