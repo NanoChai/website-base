@@ -24,11 +24,11 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { primaryWallet } = useDynamicContext();
   const [signedRequest, setSignedRequest] = useState<SignedRequest | null>(null);
+  const [isPrefetchEnabled] = useState(false);
 
-  // Keep the useEffect but commented out for future use
-  /*useEffect(() => {
+  useEffect(() => {
     const preSignRequest = async () => {
-      if (primaryWallet?.address && !signedRequest) {
+      if (isPrefetchEnabled && primaryWallet?.address && !signedRequest) {
         try {
           const request = await signRequest();
           setSignedRequest(request);
@@ -39,13 +39,12 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
     };
 
     preSignRequest();
-  }, []);*/
+  }, [primaryWallet?.address, signRequest, signedRequest, isPrefetchEnabled]);
 
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      // Sign the request when button is clicked
-      const request = await signRequest();
+      const request = isPrefetchEnabled ? signedRequest : await signRequest();
       if (!request) {
         console.error("Failed to sign request");
         return;
@@ -95,7 +94,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
           {children}
           <button 
             onClick={handleClick}
-            disabled={!signedRequest}
+            disabled={isPrefetchEnabled && !signedRequest}
             className="mt-4 px-6 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 
               text-white rounded-lg font-medium
               hover:from-purple-700 hover:to-blue-700 
@@ -109,7 +108,9 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
               disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="relative inline-flex items-center">
-              {signedRequest ? "✨ Read Full Article ✨" : "Preparing..."}
+              {isPrefetchEnabled && !signedRequest 
+                ? "Preparing..." 
+                : "✨ Read Full Article ✨"}
             </span>
           </button>
         </div>
