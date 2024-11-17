@@ -25,7 +25,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
   const { primaryWallet } = useDynamicContext();
   const [signedRequest, setSignedRequest] = useState<SignedRequest | null>(null);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const preSignRequest = async () => {
       if (primaryWallet?.address && !signedRequest) {
         try {
@@ -38,7 +38,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
     };
 
     preSignRequest();
-  }, []);
+  }, []);*/
 
   const handleClick = async () => {
     if (!signedRequest) {
