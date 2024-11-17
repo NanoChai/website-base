@@ -109,7 +109,7 @@ export default function FundManagementDialog({
                 variant="outline"
                 onClick={() => window.open(`https://base-sepolia.blockscout.com/address/${address}`, '_blank')}
               >
-                View on Explorer
+                Explorer
               </Button>
               <Button onClick={() => setIsOpen(false)} variant="secondary">
                 Cancel
