@@ -38,7 +38,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
     };
 
     preSignRequest();
-  }, [primaryWallet?.address, signRequest, signedRequest]);
+  }, []);
 
   const handleClick = async () => {
     if (!signedRequest) {
