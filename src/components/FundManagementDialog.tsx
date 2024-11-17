@@ -105,6 +105,12 @@ export default function FundManagementDialog({
               {fundsBalance && fundsBalance > BigInt(0) && (
                 <Button>Withdraw</Button>
               )}
+              <Button
+                variant="outline"
+                onClick={() => window.open(`https://base-sepolia.blockscout.com/address/${address}`, '_blank')}
+              >
+                View on Explorer
+              </Button>
               <Button onClick={() => setIsOpen(false)} variant="secondary">
                 Cancel
               </Button>
