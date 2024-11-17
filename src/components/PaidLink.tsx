@@ -25,6 +25,7 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
   const { primaryWallet } = useDynamicContext();
   const [signedRequest, setSignedRequest] = useState<SignedRequest | null>(null);
 
+  // Keep the useEffect but commented out for future use
   /*useEffect(() => {
     const preSignRequest = async () => {
       if (primaryWallet?.address && !signedRequest) {
@@ -41,17 +42,19 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
   }, []);*/
 
   const handleClick = async () => {
-    if (!signedRequest) {
-      console.error("No signed request available");
-      return;
-    }
-
     setIsLoading(true);
-    const url = window.location.pathname;
     try {
+      // Sign the request when button is clicked
+      const request = await signRequest();
+      if (!request) {
+        console.error("Failed to sign request");
+        return;
+      }
+
+      const url = window.location.pathname;
       const contentRequest = await fetch("/api/paywall", {
         method: "POST",
-        body: JSON.stringify({ ...signedRequest, url, articleId }),
+        body: JSON.stringify({ ...request, url, articleId }),
       });
       const contentResponse = await contentRequest.json();
       
