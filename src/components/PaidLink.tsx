@@ -32,8 +32,9 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
       console.log("Pre-signing request...");
       if (primaryWallet?.address) {
         try {
-          const isConnected = await primaryWallet.isConnected();
-          console.log("isConnected", isConnected);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          // const isConnected = await primaryWallet.isConnected();
+          // console.log("isConnected", isConnected);
           const request = await signRequest();
           setSignedRequest(request);
         } catch (error) {
