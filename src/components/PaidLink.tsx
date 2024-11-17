@@ -33,8 +33,6 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
       if (primaryWallet?.address) {
         try {
           await new Promise((resolve) => setTimeout(resolve, 1000));
-          // const isConnected = await primaryWallet.isConnected();
-          // console.log("isConnected", isConnected);
           const request = await signRequest();
           setSignedRequest(request);
         } catch (error) {
@@ -51,8 +49,8 @@ export function PaidLink({ articleId, children }: PaidLinkProps) {
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      console.log("Fetching content...", signedRequest);
-      const request = await signRequest();
+      console.log("Using prefetch", !!signedRequest);
+      const request = signedRequest || (await signRequest());
       if (!request) {
         console.error("Failed to sign request");
         return;
